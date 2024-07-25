@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-
+use App\Http\Controllers\Auth\UserDataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FindUserController;
 
@@ -14,4 +14,3 @@ Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);;
 
 Route::get('/users',[FindUserController::class,'all']);
 
-//Route::get('/activeUserData',[UserDataController::class,'data']);
