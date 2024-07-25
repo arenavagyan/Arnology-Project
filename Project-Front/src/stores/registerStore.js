@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import localhost from '@/main'
+import { defineStore } from 'pinia'
 export const useRegistrationStore = defineStore('registrationStore', () => {
   const name = ref('')
   const email = ref('')
