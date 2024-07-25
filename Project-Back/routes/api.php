@@ -10,7 +10,9 @@ Route::post('/register',[RegisterController::class,'register']);
 
 Route::post('/login',[LoginController::class,'login']);
 
-Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);;
+Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);
+
+Route::get('/user/{token}',[   FindUserController::class,'findUserByToken']);;
 
 Route::get('/users',[FindUserController::class,'all']);
 
