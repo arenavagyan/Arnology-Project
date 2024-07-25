@@ -4,18 +4,21 @@
     <p class="email">{{ props.email }}</p>
     <p class="role">{{ props.role }}</p>
     <p>{{ props.id }}</p>
-    <p>{{ props.getCurrentUserId }}</p>
   </div>
 </template>
 
 <script setup>
+
 const props = defineProps({
   name: String,
   email: String,
   role: String,
   id: Number,
-  getCurrentUserId: Number
+  activeUser: Object
 })
+
+
+ 
 </script>
 
 <style scoped>

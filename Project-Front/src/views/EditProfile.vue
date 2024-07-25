@@ -1,23 +1,22 @@
 <template>
   <div class="editPage">
     <form action="" method="post" class="card">
-      <input type="text" placeholder="Write new name" />
+      <input type="text" placeholder="Write new name" :value="store.name" />
       <input type="text" placeholder="Write email" />
       <input type="text" placeholder="Write password" />
 
       <button class="change">Change</button>
     </form>
-    <p>{{ user.value }}</p>
+    <p>{{ store.id }}</p>
   </div>
 </template>
 
 <script setup>
-import { useCurrentUserDataStore } from '../stores//currentUserDataStore'
-import { storeToRefs } from 'pinia'
+import { useCurrentUserDataStore } from '../stores/currentUserDataStore'
+
 const store = useCurrentUserDataStore()
 
-const { user } = storeToRefs(store) 
-
+store.setCurrentUserId()
 </script>
 
 <style scoped>

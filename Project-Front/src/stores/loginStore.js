@@ -1,53 +1,59 @@
-import { ref } from 'vue'
-import axios from 'axios'
-import localhost from '@/main'
-import { defineStore } from 'pinia'
-import router from '@/router'
-import { useAuthStore } from './authStore'
+import { ref } from 'vue';
+import axios from 'axios';
+import localhost from '@/main';
+import { defineStore } from 'pinia';
+import router from '@/router';
+import { useAuthStore } from './authStore';
 
-export const useLoginStore = defineStore('loginStore', () => {
-  const store = useAuthStore()
+export const useLoginStore = defineStore({
+  id: 'loginStore',
 
-  const email = ref('')
-  const password = ref('')
-  const status = ref('')
-  const activeStatusId = ref(0)
 
-  async function login(e) {
-    e.preventDefault()
 
-    try {
-      const res = await axios.post(`http://${localhost.value}/api/login`, {
-        email: email.value,
-        password: password.value
-      })
+  state: () => ({
+    email: ref(''),
+    password: ref(''),
+    status: ref(''),
+    id: ref(0),
+    user: ref({})
+  }),
 
-      activeStatusId.value = res.data['id']
-      status.value = res.data['role']
-      email.value = ''
-      password.value = ''
 
-      if (res.data['role'] === 'member') {
-        store.setAuthenticated()
-        await router.push('member/mainPage')
+
+  actions: {
+    async login(e) {
+      e.preventDefault();
+
+      try {
+        const res = await axios.post(`http://${localhost.value}/api/login`, {
+          email: this.email,
+          password: this.password
+        });
+
+        this.id = res.data.id;
+        this.status = res.data.role;
+        this.email = '';
+        this.password = '';
+        this.user = res.data;
+
+        console.log(this.user); 
+
+        if (res.data.role === 'member') {
+          useAuthStore().setAuthenticated();
+          await router.push('member/mainPage');
+        } else if (res.data.role === 'admin') {
+          useAuthStore().setAuthenticated();
+          await router.push('admin/mainPage');
+        } else {
+          alert('Incorrect role');
+        }
+      } catch (error) {
+        console.error('Login Error:', error);
       }
-      else if(res.data['role'] === 'admin'){
-        store.setAuthenticated()
-        await router.push('admin/mainPage')
-      }
-      else{
-        alert("Incorrect ")
-      }
-    } catch (error) {
-      console.error('Login Error:', error)
+    },
+
+    async getUserStatus() {
+      return this.status;
     }
   }
-
-  async function getUserStatus() {
-    return status.value
-  }
-  async function getUserId() {
-    return activeStatusId.value
-  }
-  return { status, email, password, getUserId, login, getUserStatus }
-})
+});
