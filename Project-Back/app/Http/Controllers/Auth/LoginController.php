@@ -17,7 +17,6 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $activeUserId = Auth::id();
             Auth::getUser()->setRememberToken(Random::generate(10));
             return Auth::getUser();
         }
