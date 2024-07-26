@@ -17,3 +17,4 @@ Route::get('/user/{token}',[   FindUserController::class,'findUserByToken']);;
 Route::get('/users',[FindUserController::class,'all']);
 
 Route::patch('changeData/users/{user_id}',[UserDataController::class,'changeData']);
+

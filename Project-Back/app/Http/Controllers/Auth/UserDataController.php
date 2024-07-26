@@ -22,7 +22,10 @@ class UserDataController extends Controller
     }
 
     public function changeData(ChangeDataRequest $request){
-        dd(Auth::id());
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
     }
 
 
