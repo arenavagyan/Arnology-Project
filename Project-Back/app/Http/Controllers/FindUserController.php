@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Request;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Auth;
 
 class FindUserController extends Controller
 {
@@ -14,14 +15,13 @@ class FindUserController extends Controller
       return response()->json($user);
     }
 
-    public function findUserByToken($token){
-       $accessToken = PersonalAccessToken::findToken($token);
-       $user = User::find($accessToken->tokenable_id);
-       return response()->json($user);
+    public function user(){
+       $user = Auth::user();
+       return response()->json(['user'=> $user]);
     }
 
     public function findToken($id){
-       return User::find($id)->accessToken;
+       return User::find($id)->auth_token;
     }
 
     public function all(){

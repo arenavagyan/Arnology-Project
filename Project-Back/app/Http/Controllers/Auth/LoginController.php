@@ -4,14 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Nette\Utils\Random;
-use App\Http\Controllers\Auth\UserDataController;
 
 class LoginController extends Controller
 {
@@ -26,7 +22,9 @@ class LoginController extends Controller
 
 
         $token = $user->createToken('auth-token')->plainTextToken;
-
+        $user->auth_token = $token;
+        Auth::setUser($user);
+        Session::put('auth_token', $token);
         return response()->json($token);
     }
 
