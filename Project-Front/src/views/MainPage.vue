@@ -1,6 +1,7 @@
 <template>
   <h1 class="role">Users</h1>
   <a href="/editProfile" class="edit">Edit My Card</a>
+
   <div v-for="(user, index) in store2.users" :key="index" class="userItem">
     <UserItem
       :name="user.name"
