@@ -22,7 +22,6 @@ class FindUserController extends Controller
 
     public function findToken($id){
        return User::find($id)->accessToken;
-
     }
 
     public function all(){
