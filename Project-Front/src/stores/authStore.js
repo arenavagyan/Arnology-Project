@@ -11,8 +11,8 @@ export const useAuthStore = defineStore('authStore', () => {
     isAuthenticated.value = false
   }
   function isLoggedIn() {
-    console.log(localStorage.getItem('accessToken'));
     return localStorage.getItem('accessToken')
+    //axios.request
   }
 
   return { isAuthenticated, setAuthenticated, logout, isLoggedIn }
