@@ -1,8 +1,14 @@
 <template>
-  <h1 class="role">You are {{ store.status }}</h1>
+  <h1 class="role">Users</h1>
   <a href="/editProfile" class="edit">Edit My Card</a>
   <div v-for="(user, index) in store2.users" :key="index" class="userItem">
-    <UserItem :name="user.name" :email="user.email" :role="user.role" :id="user.id" :activeUser ="store.user"/>
+    <UserItem
+      :name="user.name"
+      :email="user.email"
+      :role="user.role"
+      :id="user.id"
+      :activeUser="store.user"
+    />
   </div>
 </template>
 
@@ -13,8 +19,6 @@ import UserItem from '../components/UserItem.vue'
 
 const store = useLoginStore()
 const store2 = useUsersDataStore()
-
-console.log(store.user)
 </script>
 
 <style scoped>

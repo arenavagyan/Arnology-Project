@@ -10,7 +10,7 @@
       />
       <input type="text" placeholder="Write email" v-model="store.user.email" />
 
-      <button class="change">Change</button>
+      <button class="change" @click="changeData">Change</button>
     </form>
     <p class="user_json">{{ store.user }}</p>
   </div>
@@ -19,9 +19,20 @@
 <script setup>
 import { ref } from 'vue'
 import { useCurrentUserDataStore } from '../stores/currentUserDataStore'
+import { useEditDataStore } from '../stores/editDataStore'
 
 const input1 = ref(null)
 const store = useCurrentUserDataStore()
+const changeStore = useEditDataStore()
+
+function changeData(e){
+  e.preventDefault();
+  
+changeStore.changeUserData({
+  name:store.user.name,
+  email:store.user.email,
+  id:store.user.id
+})}
 
 /* store.setCurrentUserId() */
 </script>
