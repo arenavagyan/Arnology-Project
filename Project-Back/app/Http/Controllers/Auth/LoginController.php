@@ -18,8 +18,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
      $request = $request->only('email', 'password');
-
-        $user = User::where('email', $request['email'])->first();
+     $user = User::where('email', $request['email'])->first();
 
         if (! $user || ! Hash::check($request['password'], $user->password)) {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -30,9 +29,5 @@ class LoginController extends Controller
 
         return response()->json($token);
     }
-//        if (Auth::attempt($credentials)) {
-//            return Auth::getUser();
-//        }
-//        else return 'Wrong Email or Password';
 
 }

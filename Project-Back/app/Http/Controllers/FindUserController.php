@@ -14,12 +14,17 @@ class FindUserController extends Controller
       return response()->json($user);
     }
 
-    public function findUserByToken(Request $request){
-       $token = $request->bearerToken();
+    public function findUserByToken($token){
        $accessToken = PersonalAccessToken::findToken($token);
        $user = User::find($accessToken->tokenable_id);
        return response()->json($user);
     }
+
+    public function findToken($id){
+       return User::find($id)->accessToken;
+
+    }
+
     public function all(){
         $users = User::all();
         return response()->json($users);
