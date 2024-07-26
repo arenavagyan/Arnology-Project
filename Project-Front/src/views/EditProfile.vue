@@ -1,22 +1,29 @@
 <template>
   <div class="editPage">
     <form action="" method="post" class="card">
-      <input type="text" placeholder="Write new name" :value="store.name" />
-      <input type="text" placeholder="Write email" />
-      <input type="text" placeholder="Write password" />
+      <input
+        type="text"
+        placeholder="Write new name"
+        class="name"
+        ref="input1"
+        v-model="store.user.name"
+      />
+      <input type="text" placeholder="Write email" v-model="store.user.email" />
 
       <button class="change">Change</button>
     </form>
-    <p>{{ store.id }}</p>
+    <p class="user_json">{{ store.user }}</p>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useCurrentUserDataStore } from '../stores/currentUserDataStore'
 
+const input1 = ref(null)
 const store = useCurrentUserDataStore()
 
-store.setCurrentUserId()
+/* store.setCurrentUserId() */
 </script>
 
 <style scoped>
@@ -47,5 +54,9 @@ input {
   border-radius: 0.5rem;
   font-size: 1rem;
   color: white;
+  cursor: pointer;
+}
+.user_json {
+  width: 400px;
 }
 </style>

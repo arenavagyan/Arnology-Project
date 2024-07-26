@@ -11,7 +11,8 @@ export const useAuthStore = defineStore('authStore', () => {
     isAuthenticated.value = false
   }
   function isLoggedIn() {
-    return isAuthenticated.value
+    console.log(localStorage.getItem('accessToken'));
+    return localStorage.getItem('accessToken')
   }
 
   return { isAuthenticated, setAuthenticated, logout, isLoggedIn }
