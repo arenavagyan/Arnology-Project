@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeDataRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +19,10 @@ class UserDataController extends Controller
         return $user;
 
 
+    }
+
+    public function changeData(ChangeDataRequest $request){
+        dd(Auth::id());
     }
 
 
