@@ -14,7 +14,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);
     Route::get('/user',[FindUserController::class,'user']);
     Route::get('/users',[FindUserController::class,'all']);
+    Route::get('/userPassword',[FindUserController::class,'passwordCheck']);
 });
+
+
 
 
 
