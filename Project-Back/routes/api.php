@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserDataController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FindUserController;
 use Illuminate\Support\Facades\Session;
@@ -19,8 +20,8 @@ Route::get('/users',[FindUserController::class,'all']);
 
 
 Route::get('test',function (){
-   return \Illuminate\Support\Facades\Session::getSessionConfig();
-});
+   return Auth::user();
+})->name('test');
 
 /////// POST Requests //
 
@@ -28,6 +29,7 @@ Route::post('/register',[RegisterController::class,'register']);
 
 Route::post('/login',[LoginController::class,'login']);
 
+Route::post('/logout',[LoginController::class,'logout']);
 
 /////// PATCH Requests //
 

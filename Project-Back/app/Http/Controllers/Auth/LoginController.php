@@ -24,8 +24,12 @@ class LoginController extends Controller
         $token = $user->createToken('auth-token')->plainTextToken;
         $user->auth_token = $token;
         Auth::setUser($user);
-        Session::put('auth_token', $token);
         return response()->json($token);
     }
 
+    public function logout(){
+
+        Auth::logout();
+
+    }
 }
