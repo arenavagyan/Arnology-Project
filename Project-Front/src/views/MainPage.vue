@@ -1,6 +1,7 @@
 <template>
   <h1 class="role">Users</h1>
   <a href="/editProfile" class="edit">Edit My Card</a>
+  <a href="/" class="edit">Logout</a>
 
   <div v-for="(user, index) in store2.users" :key="index" class="userItem">
     <UserItem
@@ -16,7 +17,7 @@
 <script setup>
 import { useLoginStore } from '../stores/loginStore'
 import { useUsersDataStore } from '../stores/usersDataStore'
-import UserItem from '../components/UserItem.vue'
+import UserItem from '../components/UserItem.vue' 
 
 const store = useLoginStore()
 const store2 = useUsersDataStore()
@@ -37,6 +38,6 @@ const store2 = useUsersDataStore()
   padding: 0.8rem;
   background-color: cornflowerblue;
   border-radius: 0.5rem;
-  margin-bottom: 5rem;
+  margin: 0 0 5rem 0.2rem;
 }
 </style>

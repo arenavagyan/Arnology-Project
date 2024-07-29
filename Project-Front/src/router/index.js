@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Registration from '@/views/RegistrationPage.vue'
 import MainPage from '@/views/MainPage.vue'
 import { useAuthStore } from '@/stores/authStore'
-import EditProfile from '@/views/EditProfile.vue' 
+import EditProfile from '@/views/EditProfile.vue'
 import AdminPage from '@/views/AdminPage.vue'
 
 const router = createRouter({
@@ -54,10 +54,20 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, HomeView, next) => {
+router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  if (to.meta.requiresAuth && !authStore.isLoggedIn()) {
-    return '/'
+
+  if (from.path !== '/' && to.path === '/') {
+    next()
+    authStore.logout()
+  }
+
+  if (from.path === '/' && to.path !== '/') {
+    if (localStorage.getItem('authToken')) {
+      next()
+    } else {
+      next(false)
+    }
   } else {
     next()
   }

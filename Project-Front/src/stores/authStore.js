@@ -1,5 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import localhost from '@/main'
+import axios from 'axios'
 
 export const useAuthStore = defineStore('authStore', () => {
   const isAuthenticated = ref(false)
@@ -7,12 +9,13 @@ export const useAuthStore = defineStore('authStore', () => {
   function setAuthenticated() {
     isAuthenticated.value = true
   }
-  function logout() {
-    isAuthenticated.value = false
+  async function logout() {
+    await axios
+      .post(`http://${localhost.value}/api/logout`)
+      .then((isAuthenticated.value = false), localStorage.removeItem('authToken'))
   }
   function isLoggedIn() {
-    return localStorage.getItem('accessToken')
-    
+    return isAuthenticated.value
   }
 
   return { isAuthenticated, setAuthenticated, logout, isLoggedIn }

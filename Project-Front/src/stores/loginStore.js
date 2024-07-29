@@ -39,7 +39,7 @@ export const useLoginStore = defineStore({
               this.email = ''
               this.password = ''
               this.user = res.data.user
-              
+
               if (res.data.user.role === 'member') {
                 useAuthStore().setAuthenticated()
                 router.push('member/mainPage')

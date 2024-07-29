@@ -5,7 +5,7 @@
     <form action="" method="post">
       <input type="text" name="name" class="form_input" placeholder="Email" v-model="email" />
       <input type="password" name="" class="form_input" placeholder="Password" v-model="password" />
-      <button class="login" @click="login">Login</button>
+      <button class="login" @click="login">Log  in</button>
       <a href="/register" class="register">have not account yet</a>
     </form>
   </main>
@@ -17,7 +17,6 @@ import { storeToRefs } from 'pinia'
 const store = useLoginStore()
 const { email, password } = storeToRefs(store)
 const { login } = store
-
 </script>
 
 <style scoped>

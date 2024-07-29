@@ -4,6 +4,9 @@
     <button class="edit">
       <a href="/editProfile" class="editLink">Edit My Card</a>
     </button>
+    <button class="edit">
+      <a href="/" class="editLink">Logout</a>
+    </button>
     <div v-for="(user, index) in store2.users" :key="index" class="userItem">
       <UserItemForAdmin
         v-if="user.role === 'member'"
@@ -43,20 +46,20 @@
           <input type="text" v-model="changingUser.name" />
           <input type="text" v-model="changingUser.email" />
           <button class="acceptChanges" @click="edit">Accept Changes</button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="50"
-              fill="green"
-              class="bi bi-check2-all"
-              viewBox="0 0 16 16"
-              ref="done"
-            >
-              <path
-                d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"
-              />
-              <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708" />
-            </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="green"
+            class="bi bi-check2-all"
+            viewBox="0 0 16 16"
+            ref="done"
+          >
+            <path
+              d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"
+            />
+            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708" />
+          </svg>
         </div>
       </div>
     </div>
@@ -115,7 +118,7 @@ function edit() {
   background-color: cornflowerblue;
   border-radius: 0.5rem;
   border: none;
-  margin-bottom: 2rem;
+  margin: 0 0.2rem 2rem 0;
 }
 .editLink {
   color: white;
