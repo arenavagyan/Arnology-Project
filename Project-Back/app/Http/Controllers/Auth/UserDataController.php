@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeDataRequest;
+use App\Http\Requests\NewPasswordRequest;
+use App\Http\Requests\PasswordRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +28,10 @@ class UserDataController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
+    }
+
+    public function changePassword(NewPasswordRequest $request){
+         $request->newPassword;
     }
 
 
