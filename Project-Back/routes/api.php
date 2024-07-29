@@ -18,8 +18,6 @@ Route::get('/users',[FindUserController::class,'all']);
 
 
 
-Route::get('/users/{user_id}/token',[  FindUserController::class,'findToken']);
-
 Route::get('test',function (){
    return \Illuminate\Support\Facades\Session::getSessionConfig();
 });
