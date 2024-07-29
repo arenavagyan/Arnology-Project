@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('authStore', () => {
   }
   function isLoggedIn() {
     return localStorage.getItem('accessToken')
-    //axios.request
+    
   }
 
   return { isAuthenticated, setAuthenticated, logout, isLoggedIn }
