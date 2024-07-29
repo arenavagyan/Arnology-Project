@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Nette\Utils\Random;
 
@@ -30,9 +31,15 @@ class UserDataController extends Controller
         $user->save();
     }
 
-    public function changePassword(NewPasswordRequest $request){
-         $request->newPassword;
+    public function changePassword(NewPasswordRequest $request,$userId){
+
+        $user = User::find($userId);
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+        return $user->password;
+
     }
+
 
 
 }
