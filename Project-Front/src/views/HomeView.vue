@@ -3,8 +3,8 @@
     <h1 class="header">Login Page</h1>
 
     <form action="" method="post">
-      <input type="text" name="name" class="form_input" placeholder="Email" v-model="email" />
-      <input type="password" name="" class="form_input" placeholder="Password" v-model="password" />
+      <input type="text" name="name" class="form_input" placeholder="Email" v-model="store.email" />
+      <input type="password" name="" class="form_input" placeholder="Password" v-model="store.password" />
       <button class="login" @click="login">Log  in</button>
       <a href="/register" class="register">have not account yet</a>
     </form>
@@ -13,9 +13,7 @@
 
 <script setup>
 import { useLoginStore } from '@/stores/loginStore'
-import { storeToRefs } from 'pinia'
 const store = useLoginStore()
-const { email, password } = storeToRefs(store)
 const { login } = store
 </script>
 
