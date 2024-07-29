@@ -6,16 +6,15 @@ use App\Http\Controllers\Auth\UserDataController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FindUserController;
-use Illuminate\Support\Facades\Session;
 
 
 //////// GET Requests //
 
-Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);
-
-Route::middleware(['auth:sanctum'])->get('/user',[FindUserController::class,'user']);
-
-Route::get('/users',[FindUserController::class,'all']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/users/{user_id}',[   FindUserController::class,'findUserById']);
+    Route::get('/user',[FindUserController::class,'user']);
+    Route::get('/users',[FindUserController::class,'all']);
+});
 
 
 
