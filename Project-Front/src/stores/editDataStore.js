@@ -9,7 +9,10 @@ export const useEditDataStore = defineStore({
   state: () => ({
     name: ref(''),
     email: ref(''),
-    id: ref()
+    id: ref(),
+    oldPassword: ref(''),
+    newPassword: ref(''),
+    permission: ref(false)
   }),
 
   actions: {
@@ -19,6 +22,36 @@ export const useEditDataStore = defineStore({
         email: user.email,
         id: user.id
       })
+    },
+    checkOld(pass) {
+      const apiUrl = `http://${localhost.value}/api/userPassword `
+
+      const rawData = {
+        password: pass
+      }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`
+        }
+      }
+      axios
+        .post(apiUrl, rawData, config)
+        .then((res) => {
+          this.permission = res.data
+          console.log(this.permission)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    changeOldPassword(newUserPassword, id, refName) {
+      axios
+        .patch(`http://${localhost.value}/api/changePassword/users/${id}`, {
+          newPassword: newUserPassword
+        })
+        .then(console.log('changed successfully'),
+        refName.value.style.display = 'block')
     }
   }
 })
