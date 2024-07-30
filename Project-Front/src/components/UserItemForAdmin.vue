@@ -1,5 +1,5 @@
 <template>
-  <div class="userCard" v-if="props.role === 'member'">
+  <div class="userCard">
     <h1>{{ props.name }}</h1>
     <p class="email">{{ props.email }}</p>
     <div class="id_change">

@@ -1,29 +1,55 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 import axios from 'axios'
 import localhost from '@/main'
-import { defineStore } from 'pinia';
-import router from '@/router';
-export const useRegistrationStore = defineStore('registrationStore', () => {
-  const name = ref('')
-  const email = ref('')
-  const password = ref('')
+import { defineStore } from 'pinia'
+import router from '@/router'
+import { useUsersDataStore } from './usersDataStore'
 
-  function register(e) {
-    e.preventDefault()
-   
-   axios.post(`http://${localhost.value}/api/register`,{
-        name:name.value,
-        email:email.value,
-        password:password.value
-    })
-    .then(
-      name.value = '',
-      email.value = '',
-      password.value = '',
-      console.log("Done succesfully"),
-      router.go(-1))
+export const useRegistrationStore = defineStore({
+  id: 'registrationStore',
 
+  state: () => ({
+    name: ref(''),
+    email: ref(''),
+    password: ref(''),
+    usersStore: useUsersDataStore()
+  }),
+
+  actions: {
+    register(e) {
+      e.preventDefault()
+
+      axios
+        .post(`http://${localhost.value}/api/register`, {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then(
+          (this.name = ''),
+          (this.email = ''),
+          (this.password = ''),
+          console.log('Done succesfully'),
+          router.go(-1)
+        )
+    },
+    addUser(e) {
+      e.preventDefault()
+      axios
+        .post(
+          `http://${localhost.value}/api/addUser`,
+          {
+            name: this.name,
+            email: this.email,
+            password: this.password
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`
+            }
+          }
+        )
+        .then((this.name = ''), (this.email = ''), (this.password = ''), alert('Done succesfully'))
+    }
   }
-
-  return { name,email,password,register }
 })

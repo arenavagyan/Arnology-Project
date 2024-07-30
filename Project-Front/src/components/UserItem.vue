@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
   name: String,
   email: String,
@@ -16,9 +15,6 @@ const props = defineProps({
   id: Number,
   activeUser: Object
 })
-
-
- 
 </script>
 
 <style scoped>

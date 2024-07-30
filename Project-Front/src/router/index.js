@@ -5,7 +5,7 @@ import MainPage from '@/views/MainPage.vue'
 import { useAuthStore } from '@/stores/authStore'
 import EditProfile from '@/views/EditProfile.vue'
 import AdminPage from '@/views/AdminPage.vue'
-
+import AddUserPage from '@/views/AddUserPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -36,6 +36,14 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: '/admin/addUser',
+      name: 'addUser',
+      component: AddUserPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
 
     {
       path: '/editProfile',
@@ -62,7 +70,7 @@ router.beforeEach((to, from, next) => {
     authStore.logout()
   }
 
-  if (from.path === '/' && to.path !== '/') {
+  if (from.path === '/' && to.path !== '/register' && to.path !== '/') {
     if (localStorage.getItem('authToken')) {
       next()
     } else {

@@ -47,16 +47,28 @@ export const useEditDataStore = defineStore({
     },
     changeOldPassword(newUserPassword, id, refName) {
       axios
-        .patch(`http://${localhost.value}/api/changePassword/users/${id}`, {
-          newPassword: newUserPassword
-        },
-       {
-        headers:{
-           Authorization: `Bearer ${localStorage.getItem('authToken')}`
-        }
-       })
-        .then(console.log('changed successfully'),
-        refName.value.style.display = 'block')
+        .patch(
+          `http://${localhost.value}/api/changePassword/users/${id}`,
+          {
+            newPassword: newUserPassword
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`
+            }
+          }
+        )
+        .then(console.log('changed successfully'), (refName.value.style.display = 'block'))
+    },
+    deleteUser(userId) {
+      
+      axios
+        .delete(`http://${localhost.value}/api/delete/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`
+          }
+        })
+        .catch(e => console.log(e))
     }
   }
 })

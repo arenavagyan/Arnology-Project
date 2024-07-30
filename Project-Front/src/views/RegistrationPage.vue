@@ -3,11 +3,11 @@
     <h1 class="header">Registration Page</h1>
 
     <form action="" method="post">
-      <input type="text" name="" id="" class="form_input" placeholder="Name" v-model="name" />
-      <input type="email" name="" id="" class="form_input" placeholder="Email" v-model="email"/>
-      <input type="password" name="" id="" class="form_input" placeholder="Password" v-model="password"/>
+      <input type="text" class="form_input" placeholder="Name" v-model="store.name" />
+      <input type="email" class="form_input" placeholder="Email" v-model="store.email" />
+      <input type="password" class="form_input" placeholder="Password" v-model="store.password" />
 
-      <button class="login" @click="register">Create</button>
+      <button class="login" @click="store.register">Create</button>
       <a href="/" class="register">Already have an account</a>
     </form>
   </main>
@@ -15,12 +15,8 @@
 
 <script setup>
 
-import { useRegistrationStore } from '@/stores/registerStore';
-import { storeToRefs } from 'pinia';
+import { useRegistrationStore } from '@/stores/registerStore'
 const store = useRegistrationStore()
-const {name,email,password} = storeToRefs(store)
-const {register} = store
-
 </script>
 
 <style scoped>
