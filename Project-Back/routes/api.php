@@ -18,7 +18,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::patch('changePassword/users/{user_id}',[UserDataController::class,'changePassword']);
 });
 
-Route::post('/addUser',);
+
+Route::middleware(['auth:sanctum','isAdmin'])->group(function () {
+    Route::post('/addUser',[UserController::class,'addUser']);
+    Route::delete('/delete/users/{userId}',[UserController::class,'deleteUser']);
+});
 
 
 
@@ -27,9 +31,6 @@ Route::get('test',function (){
 })->name('test');
 
 
-Route::get('/t',function (){
-    dd(1);
-})->middleware(['auth:sanctum',IsAdmin::class]);
 
 /////// POST Requests //
 

@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PasswordRequest;
 use App\Models\User;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+use Nette\Utils\Random;
+use Psy\Util\Str;
 
 class UserController extends Controller
 {
     public function all(){
-        $users = User::all();
+        $users = User::all()->except(Auth::id());
         return response()->json($users);
     }
 
@@ -35,4 +37,27 @@ class UserController extends Controller
         return response()->json(false);
 
     }
+
+        public function addUser(Request $request){
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->remember_token = \Illuminate\Support\Str::random(10);
+        $user->save();
+    }
+
+    public function deleteUser(Request $request){
+
+        if ($request->userId !== Auth::id()){
+
+        $user = User::find($request->userId);
+        $user->delete();
+
+        }
+
+    }
+
+
 }

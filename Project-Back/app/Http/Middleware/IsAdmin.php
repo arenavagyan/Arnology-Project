@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class IsAdmin extends Middleware
 {
-public function handle($request,Closure $next,...$guards): bool
+public function handle($request,Closure $next,...$guards)
 {
 
     if ($request->user()->role === "admin") return $next($request);

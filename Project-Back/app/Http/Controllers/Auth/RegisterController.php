@@ -18,8 +18,7 @@ class RegisterController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'remember_token' => Random::generate(10),
-             'is_registered' => true
+            'remember_token' => Random::generate(10)
         ]);
 
 
