@@ -49,7 +49,12 @@ export const useEditDataStore = defineStore({
       axios
         .patch(`http://${localhost.value}/api/changePassword/users/${id}`, {
           newPassword: newUserPassword
-        })
+        },
+       {
+        headers:{
+           Authorization: `Bearer ${localStorage.getItem('authToken')}`
+        }
+       })
         .then(console.log('changed successfully'),
         refName.value.style.display = 'block')
     }
