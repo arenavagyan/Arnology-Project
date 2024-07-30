@@ -1,9 +1,8 @@
 <template>
   <div class="main" ref="main">
     <h1 class="role">Users</h1>
-    <button class="edit">
-      <a href="/editProfile" class="editLink">Edit My Card</a>
-    </button>
+    <a href="/editProfile" class="editCardLink">Edit My Card</a>
+
     <button class="edit">
       <a href="/" class="editLink">Logout</a>
     </button>
@@ -99,7 +98,6 @@ const done = ref(null)
 const changingUser = ref({})
 const userItems = ref([])
 
-
 const store = useLoginStore()
 const store2 = useUsersDataStore()
 const store3 = useEditDataStore()
@@ -162,7 +160,16 @@ function deleteUser(userId, index) {
   color: white;
   text-decoration: none;
 }
-
+.editCardLink {
+  background-color: cornflowerblue;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 0.9rem;
+  border-radius: 0.4rem;
+  margin: 0.2rem;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .acceptChanges {
   color: white;
   text-decoration: none;
