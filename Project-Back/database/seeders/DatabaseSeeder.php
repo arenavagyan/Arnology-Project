@@ -20,5 +20,12 @@ class DatabaseSeeder extends Seeder
              'password' => bcrypt('111111'),
              'role' => 'admin',
          ]);
+
+        \App\Models\Image::create([
+
+            'path' => 'images/UqUscYSypqGSXL8wCFK5ktsc8MKp7WcysLE0BswR.jpg',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

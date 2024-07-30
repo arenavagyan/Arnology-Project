@@ -16,6 +16,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/users',[UserController::class,'all']);
     Route::post('/userPassword',[UserController::class,'passwordCheck']);
     Route::patch('changePassword/users/{user_id}',[UserDataController::class,'changePassword']);
+
+    Route::post('/uploadImage',[ImageController::class,'upload']);
+    Route::post('/setImage/images/{imagePath}',[ImageController::class,'setUserImage']);
 });
 
 
@@ -24,7 +27,8 @@ Route::middleware(['auth:sanctum','isAdmin'])->group(function () {
     Route::delete('/delete/users/{userId}',[UserController::class,'deleteUser']);
 });
 
-Route::get('/uploadImage',[ImageController::class,'upload']);
+
+Route::get('/images/{image_id}',[ImageController::class,'getImage']);
 
 //    function (){
 //   $file = \Illuminate\Support\Facades\File::get(public_path('/images/1.jpg'));
