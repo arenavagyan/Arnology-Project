@@ -34,5 +34,4 @@ class FindUserController extends Controller
 
     }
 
-    public function updatePassword(PasswordRequest $request){}
 }

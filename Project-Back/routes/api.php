@@ -15,11 +15,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user',[FindUserController::class,'user']);
     Route::get('/users',[FindUserController::class,'all']);
     Route::post('/userPassword',[FindUserController::class,'passwordCheck']);
+    Route::patch('changePassword/users/{user_id}',[UserDataController::class,'changePassword']);
+
 });
-
-Route::patch('changePassword/users/{user_id}',[UserDataController::class,'changePassword']);
-
-
 
 
 

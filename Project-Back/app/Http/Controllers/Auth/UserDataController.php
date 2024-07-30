@@ -25,10 +25,12 @@ class UserDataController extends Controller
     }
 
     public function changeData(ChangeDataRequest $request){
+
         $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
+
     }
 
     public function changePassword(NewPasswordRequest $request,$userId){
