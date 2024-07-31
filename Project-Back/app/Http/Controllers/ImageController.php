@@ -23,12 +23,12 @@ class ImageController extends Controller
       return response()->json($image->path,200);
     }
 
-    public function     setUserImage($imagePath){
+    public function setUserImage($imagePath){
 
         $user = Auth::user();
         $user->image = $imagePath;
         $user->save();
-        return response()->json($imagePath , 200);
+        return response()->json($user->image , 200);
     }
 
     public function getImage($imageName){
