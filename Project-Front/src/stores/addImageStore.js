@@ -2,48 +2,63 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { defineStore } from 'pinia'
 import localhost from '@/main'
+import { useCurrentUserDataStore } from './currentUserDataStore'
 
 export const useImageStore = defineStore({
   id: 'imageStore',
-
+  
   state: () => ({
     uploadStatus: ref(''),
     file: ref(null),
     fileExists: ref(false),
     formData: ref({}),
-    path: ref('')
+    path: ref(''),
+    imageName: ref(''),
+    store:useCurrentUserDataStore()
   }),
 
   actions: {
-    handleImageChange(e) {
-      if (this.file) {
-        this.file = e.target.files[0]
-      }
-    },
+    
     uploadImage() {
       this.formData = new FormData()
       this.formData.append('image', this.file)
+      this.formData.append('name', this.file['name'])
+      this.imageName = this.file['name']
       axios
         .post(`http://${localhost.value}/api/uploadImage`, this.formData, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`
           }
         })
         .then((res) => (this.path = res.data))
     },
 
     addImagePathToDB() {
-        
       axios
-        .post(`http://${localhost.value}/api/setImage/${this.path}`, 
-            
-            {
+        .get(`http://${localhost.value}/api/setImage/${this.path}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('authToken')}`
           }
         })
-        .then((res) => console.log(res.data))
+
+        .then((res) => ((this.path = res.data), console.log(this.path)))
+    },
+
+    showUserAvatar() {
+      if (this.path) {
+        axios
+          .get(`http://${localhost.value}/api/tt`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('authToken')}`
+            }
+          })
+          .then((res) => (this.image = res.data, 
+             console.log(this.image)
+          ))
+      } else {
+        return 'defaultUser'
+      }
     }
   }
 })

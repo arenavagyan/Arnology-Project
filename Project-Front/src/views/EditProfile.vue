@@ -2,10 +2,19 @@
   <div class="main">
     <div class="image">
       <div class="imageRound" ref="imageRound" id="imageRound">
-        <img src="../../public/defaultImage.png" alt="" class="userIcon" />
+        <img
+          :src="
+            imageStore.image  
+              ? `../../public/images/${imageStore.image}`
+              : '../../public/defaultImage.png'
+          "
+          alt=""
+          class="userIcon"
+        />
       </div>
       <input type="file" name="imageInput" ref="imageInputRef" @change="handleImageChange" />
       <button class="addImage" @click="uploadImage">Add Image</button>
+      {{  }}
     </div>
     <div class="editPage">
       <h2>Change Data</h2>
@@ -68,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useCurrentUserDataStore } from '../stores/currentUserDataStore'
 import { useEditDataStore } from '../stores/editDataStore'
 import { useImageStore } from '@/stores/addImageStore'
@@ -115,9 +124,12 @@ function uploadImage() {
   }
 
   imageStore.addImagePathToDB()
-
-  
+  imageStore.showUserAvatar()
 }
+
+onMounted(() => {
+  imageStore.showUserAvatar()
+})
 </script>
 
 <style scoped>
@@ -142,6 +154,7 @@ function uploadImage() {
   box-shadow: 0.1rem 0.1rem 1rem black;
   border-radius: 50%;
   margin-top: 5rem;
+  overflow: hidden;
 }
 .addImage {
   text-decoration: none;
@@ -236,5 +249,11 @@ input {
 
 .bi-check2-all {
   display: none;
+}
+
+@media (max-width: 700px) {
+  .main {
+    flex-direction: column;
+  }
 }
 </style>
