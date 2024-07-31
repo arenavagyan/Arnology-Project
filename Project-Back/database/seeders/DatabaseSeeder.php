@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Image::create([
 
             'path' => 'images/UqUscYSypqGSXL8wCFK5ktsc8MKp7WcysLE0BswR.jpg',
+            'image_name' => 'defaultUser.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
