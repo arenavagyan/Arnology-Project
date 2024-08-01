@@ -6,6 +6,7 @@ import { defineStore } from 'pinia'
 export const useCurrentUserDataStore = defineStore('CurrentUserDataStore', () => {
   const user = ref({})
   const token = ref(localStorage.getItem('authToken'))
+  const avatarName = ref('')
 
   axios
   .get(`http://${localhost.value}/api/user`, {
@@ -18,5 +19,5 @@ export const useCurrentUserDataStore = defineStore('CurrentUserDataStore', () =>
     })
     .catch(new Error ('unAuthorized'))
 
-  return { user }
+  return { user,avatarName }
 })

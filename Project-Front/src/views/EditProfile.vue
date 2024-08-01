@@ -2,19 +2,16 @@
   <div class="main">
     <div class="image">
       <div class="imageRound" ref="imageRound" id="imageRound">
-        <img
-          :src="
-            imageStore.image  
-              ? `../../public/images/${imageStore.image}`
-              : '../../public/images/defaultImage.png'
-          "
-          alt=""
-          class="userIcon"
-        />
+        <img :src="store.avatarName" alt="" class="userIcon" ref="imageRef" />
       </div>
-      <input type="file" name="imageInput" ref="imageInputRef" @change="handleImageChange" />
+      <input
+        type="file"
+        name="imageInput"
+        ref="imageInputRef"
+        @change="handleImageChange"
+        class="uploadImage"
+      />
       <button class="addImage" @click="uploadImage">Add Image</button>
-      {{  }}
     </div>
     <div class="editPage">
       <h2>Change Data</h2>
@@ -89,6 +86,7 @@ const imageStore = useImageStore()
 const doneDataChange = ref(null)
 const done = ref(null)
 const file = ref(null)
+const imageRef = ref(null)
 
 function changeData(e) {
   e.preventDefault()
@@ -124,10 +122,9 @@ function uploadImage() {
   }
 
   imageStore.addImagePathToDB()
-  imageStore.showUserAvatar()
 }
 
-  imageStore.showUserAvatar()
+imageStore.showUserAvatar(imageRef)
 </script>
 
 <style scoped>
@@ -181,6 +178,22 @@ h2 {
   align-items: center;
   flex-direction: column;
   width: 70%;
+}
+input[type='file'] {
+  height: auto;
+  color: rgb(49, 141, 228);
+}
+input[type='file']::file-selector-button {
+  box-shadow: 0.2rem 0.3rem 0.7rem rgb(204, 204, 204);
+  padding: 0.7rem 1rem;
+  background-color: rgb(49, 141, 228);
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: 0.7s;
+  margin-right: 1rem;
 }
 .card {
   display: flex;
