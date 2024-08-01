@@ -6,7 +6,7 @@ import { useCurrentUserDataStore } from './currentUserDataStore'
 
 export const useImageStore = defineStore({
   id: 'imageStore',
-  
+
   state: () => ({
     uploadStatus: ref(''),
     file: ref(null),
@@ -14,11 +14,11 @@ export const useImageStore = defineStore({
     formData: ref({}),
     path: ref(''),
     imageName: ref(''),
-    store:useCurrentUserDataStore()
+    image: ref(''),
+    store: useCurrentUserDataStore()
   }),
 
   actions: {
-    
     uploadImage() {
       this.formData = new FormData()
       this.formData.append('image', this.file)
@@ -42,23 +42,17 @@ export const useImageStore = defineStore({
           }
         })
 
-        .then((res) => ((this.path = res.data), console.log(this.path)))
+        .then((res) => (this.path = res.data))
     },
 
     showUserAvatar() {
-      if (this.path) {
-        axios
-          .get(`http://${localhost.value}/api/tt`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('authToken')}`
-            }
-          })
-          .then((res) => (this.image = res.data, 
-             console.log(this.image)
-          ))
-      } else {
-        return 'defaultUser'
-      }
+      axios
+        .get(`http://${localhost.value}/api/tt`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`
+          }
+        })
+        .then((res) => (this.image = res.data))
     }
   }
 })

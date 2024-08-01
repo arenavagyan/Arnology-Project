@@ -6,7 +6,7 @@
           :src="
             imageStore.image  
               ? `../../public/images/${imageStore.image}`
-              : '../../public/defaultImage.png'
+              : '../../public/images/defaultImage.png'
           "
           alt=""
           class="userIcon"
@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useCurrentUserDataStore } from '../stores/currentUserDataStore'
 import { useEditDataStore } from '../stores/editDataStore'
 import { useImageStore } from '@/stores/addImageStore'
@@ -127,9 +127,7 @@ function uploadImage() {
   imageStore.showUserAvatar()
 }
 
-onMounted(() => {
   imageStore.showUserAvatar()
-})
 </script>
 
 <style scoped>
