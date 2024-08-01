@@ -33,6 +33,16 @@ return [
     |
     */
 
+    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'port' => env('MAIL_PORT', 587),
+    'encryption' => 'tls',
+    'username' => env('MAIL_USERNAME'),
+    'password' => env('MAIL_PASSWORD'),
+    'sendmail' => '/usr/sbin/sendmail -bs',
+    'pretend' => false,
+
+
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
@@ -58,9 +68,10 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
-
             'domain' => env('MAILGUN_DOMAIN'),
             'secret' => env('MAILGUN_SECRET'),
+            'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+            'scheme' => 'https',
             // 'client' => [
             //     'timeout' => 5,
             // ],
