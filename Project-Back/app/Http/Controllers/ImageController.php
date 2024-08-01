@@ -8,6 +8,8 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class ImageController extends Controller
 {
@@ -45,12 +47,21 @@ class ImageController extends Controller
 
       $user = Auth::user();
       $imageName = $user->image;
-        $imagePath = 'images/'.$imageName;
-        $image = Image::where('path',$imagePath)->first()->image_name;
-        if($image){
-            return $image;
+        if($imageName){
+            return $imageName;
         }
-        return 'defaultImage.png';
+       return null;
+
+    }
+
+    public function imageFileGetter($imageName){
+
+
+        $file = File::get( storage_path('app/public/images/').$imageName);
+        $response = Response::make($file, 200);
+        $mimeType = File::mimeType(storage_path('app/public/images/').$imageName);
+        $response->header("Content-Type", $mimeType);
+        return $response;
 
     }
 }

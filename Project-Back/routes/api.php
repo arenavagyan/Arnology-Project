@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserDataController;
 use App\Http\Middleware\IsAdmin;
+use \App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,9 +19,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::patch('changePassword/users/{user_id}',[UserDataController::class,'changePassword']);
     Route::post('/uploadImage',[ImageController::class,'upload']);
     Route::get('/setImage/images/{imagePath}',[ImageController::class,'setUserImage']);
-    Route::get('/images/{imageName}',[ImageController::class,'getImage']);
-    Route::get('/tt',[ImageController::class,'getUserAvatar']);
+    Route::get('/images/{imageName}',[ImageController::class,'getUserImage']);
+    Route::get('/currentUserImageName',[ImageController::class,'getUserAvatar']);
+    Route::post('/sendVerificationCode',[VerificationController::class,'sendVerificationCode']);
+
+
 });
+
+
+Route::get('/images/{imageName}',[ImageController::class,'imageFileGetter']);
+
 
 
 

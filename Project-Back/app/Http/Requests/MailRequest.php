@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class   ImageRequest extends FormRequest
+class   MailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class   ImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'path'=>'image|mimes:jpeg,png,jpg,gif,svg,avif|max:2048',
+            'email' => 'string|email|max:255',
         ];
     }
 }
