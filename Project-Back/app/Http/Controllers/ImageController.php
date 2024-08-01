@@ -42,15 +42,15 @@ class ImageController extends Controller
 
     public function getUserAvatar()
     {
+
       $user = Auth::user();
       $imageName = $user->image;
         $imagePath = 'images/'.$imageName;
-        $image = Image::where('path',$imagePath)->first();
-        $path = storage_path('app/public/' . $image->path);
-        if(file_exists($path)){
-            return response()->json($image->image_name);
+        $image = Image::where('path',$imagePath)->first()->image_name;
+        if($image){
+            return $image;
         }
-        abort(404);
+        return 'defaultImage.png';
 
     }
 }
