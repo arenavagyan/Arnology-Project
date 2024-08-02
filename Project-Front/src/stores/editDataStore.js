@@ -23,11 +23,11 @@ export const useEditDataStore = defineStore({
         id: user.id
       })
     },
-    checkOld(pass) {
+    checkOld() {
       const apiUrl = `http://${localhost.value}/api/userPassword `
 
       const rawData = {
-        password: pass
+        password: this.oldPassword
       }
       const config = {
         headers: {
@@ -39,7 +39,6 @@ export const useEditDataStore = defineStore({
         .post(apiUrl, rawData, config)
         .then((res) => {
           this.permission = res.data
-          console.log(this.permission)
         })
         .catch((error) => {
           console.error(error)
@@ -61,15 +60,13 @@ export const useEditDataStore = defineStore({
         .then(console.log('changed successfully'), (refName.value.style.display = 'block'))
     },
     deleteUser(userId) {
-      
       axios
         .delete(`http://${localhost.value}/api/delete/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('authToken')}`
           }
         })
-        .catch(e => console.log(e))
+        .catch((e) => console.log(e))
     }
   }
 })
-

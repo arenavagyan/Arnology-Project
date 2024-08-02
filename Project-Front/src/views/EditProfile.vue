@@ -96,6 +96,7 @@ function changeData(e) {
 
 function checkOld(e) {
   e.preventDefault()
+  changeStore.checkOld()
   if (changeStore.permission) {
     console.log(changeStore.newPassword)
   }
@@ -103,8 +104,14 @@ function checkOld(e) {
 
 function changePassword(e) {
   e.preventDefault()
-  changeStore.changeOldPassword(changeStore.newPassword, store.user.id, done)
-  done.value.style.display = 'block'
+  if (changeStore.permission) {
+    changeStore.changeOldPassword(changeStore.newPassword, store.user.id, done)
+    // done.value.style.display = 'block'
+  } else {
+    alert('Wrong Old Password')
+    changeStore.oldPassword = ''
+    changeStore.newPassword = ''
+  }
 }
 
 function handleImageChange(e) {
