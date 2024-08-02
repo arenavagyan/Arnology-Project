@@ -33,15 +33,6 @@ class ImageController extends Controller
         return response()->json($user->image , 200);
     }
 
-    public function getImage($imageName){
-        $imagePath = 'images/'.$imageName;
-        $image = Image::where('path',$imagePath)->first();
-        if(file_exists($image)){
-            return response()->json($image->image_name);
-        }
-        abort(404);
-    }
-
     public function getUserAvatar()
     {
 

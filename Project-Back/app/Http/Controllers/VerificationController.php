@@ -14,10 +14,7 @@ class VerificationController extends Controller
         public function sendVerificationCode(MailRequest $request){
                $email = $request->input('email');
                $code = Str::random(6);
-//     $mailgun = new Mailgun(env('MAILGUN_API_KEY'));
-
-               Mail::to($email)->send(new VerificationCodeMail($code));
-
+               Mail::to('avagyan.rn@gmail.com')->send(new VerificationCodeMail($code));
                return response()->json(["success" => true, "code" => $code]);
         }
 }

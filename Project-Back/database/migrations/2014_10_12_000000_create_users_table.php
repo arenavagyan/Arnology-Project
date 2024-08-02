@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('image')->nullable();
-            $table->string('image_name')->nullable();
             $table->string('password');
             $table->string('role')->default('member');
             $table->rememberToken();

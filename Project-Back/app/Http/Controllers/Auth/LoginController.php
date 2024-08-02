@@ -26,7 +26,6 @@ class LoginController extends Controller
         Auth::setUser($user);
         return response()->json($token);
     }
-
     public function logout(){
 
         Auth::logout();
