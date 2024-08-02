@@ -17,11 +17,19 @@ export const useEditDataStore = defineStore({
 
   actions: {
     changeUserData(user) {
-      axios.patch(`http://${localhost.value}/api/changeData/users/${this.id}`, {
-        name: user.name,
-        email: user.email,
-        id: user.id
-      })
+
+      axios.patch(`http://${localhost.value}/api/changeData/users/${this.id}`, 
+        {
+          name: user.name,
+          email: user.email,
+          id: user.id
+          },
+        {
+          headers:{
+          Authorization:`Bearer ${localStorage.getItem('authToken')}`
+        },
+        
+    })
     },
     checkOld() {
       const apiUrl = `http://${localhost.value}/api/userPassword `
