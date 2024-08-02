@@ -31,11 +31,11 @@ class UserController extends Controller
         $password = Auth::user()->getAuthPassword();
         $isSame = Hash::check($request->password, $password);
         if ($isSame) return response()->json($isSame);
-        return response()->json(false);
+        else return response()->json(false);
 
     }
 
-        public function addUser(Request $request){
+    public function addUser(Request $request){
 
         $user = new User();
         $user->name = $request->name;
