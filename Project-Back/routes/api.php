@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserDataController;
+use App\Http\Controllers\CalendarController;
 use \App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,7 @@ Route::get('/images/{imageName}',[ImageController::class,'imageFileGetter']);
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
 Route::post('/logout',[LoginController::class,'logout']);
+
+
+
+Route::get('/parse-ics', [CalendarController::class, 'parseIcs']);
