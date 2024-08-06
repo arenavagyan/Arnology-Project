@@ -40,4 +40,4 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 
 
-Route::get('/parse-ics', [CalendarController::class, 'parseIcsFromUrl']);
+Route::get('/parse-ics', [CalendarController::class, 'calculateEventsTime']);

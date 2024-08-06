@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class CalendarController extends Controller
 {
-    public function parseIcsFromUrl()
+    public function calculateEventsTime()
     {
         $icsUrl = 'https://calendar.google.com/calendar/ical/aren.avagyan100%40gmail.com/private-7b88b771c9f7c46dbf531c0832983d67/basic.ics';
         $icsData = $this->getIcsFromUrl($icsUrl);
@@ -155,3 +154,4 @@ class CalendarController extends Controller
         return $totalMinutes;
     }
 }
+
