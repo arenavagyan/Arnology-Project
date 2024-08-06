@@ -4,54 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class CalendarController extends Controller
 {
-
-    public function parseIcs()
+    public function parseIcsFromUrl()
     {
-
-        $icsData = 'BEGIN:VCALENDAR
-        PRODID:-//Google Inc//Google Calendar 70.9054//EN
-        VERSION:2.0
-        CALSCALE:GREGORIAN
-        METHOD:PUBLISH
-        X-WR-CALNAME:aren.avagyan100@gmail.com
-        X-WR-TIMEZONE:Asia/Yerevan
-        BEGIN:VEVENT
-        DTSTART:20240806T113000Z
-        DTEND:20240806T123000Z
-        DTSTAMP:20240806T110943Z
-        UID:2ck5sqnh613m82nr63t0fd7vvi@google.com
-        CREATED:20240806T110546Z
-        LAST-MODIFIED:20240806T110546Z
-        SEQUENCE:0
-        STATUS:CONFIRMED
-        SUMMARY:Task 1
-        TRANSP:OPAQUE
-        END:VEVENT
-        BEGIN:VEVENT
-        DTSTART:20240806T121000Z
-        DTEND:20240806T131000Z
-        DTSTAMP:20240806T110943Z
-        UID:7d9fh0jgirhlip6de3033a8n7f@google.com
-        CREATED:20240806T110604Z
-        DESCRIPTION:Task 2
-        LAST-MODIFIED:20240806T110655Z
-        SEQUENCE:0
-        STATUS:CONFIRMED
-        SUMMARY:Task 2
-        TRANSP:OPAQUE
-        END:VEVENT
-        END:VCALENDAR';
-
+        $icsUrl = 'https://calendar.google.com/calendar/ical/aren.avagyan100%40gmail.com/private-7b88b771c9f7c46dbf531c0832983d67/basic.ics';
+        $icsData = $this->getIcsFromUrl($icsUrl);
 
         $events = $this->extractEvents($icsData);
+        $events = $this->filterEventsForNextWeek($events);
         $mergedIntervals = $this->mergeIntervals($events);
         $totalSummaryTime = $this->calculateTotalTime($mergedIntervals);
 
-
         return response()->json(['total_summary_time' => $totalSummaryTime]);
+    }
+
+    /**
+     * Get ICS data from the given URL.
+     *
+     * @param string $url
+     * @return string
+     */
+    private function getIcsFromUrl($url)
+    {
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            return $response->body();
+        } else {
+            // Handle the error appropriately
+            abort(500, 'Unable to fetch ICS data');
+        }
     }
 
     /**
@@ -100,6 +85,22 @@ class CalendarController extends Controller
     }
 
     /**
+     * Filter events to only include those in the next week.
+     *
+     * @param array $events
+     * @return array
+     */
+    private function filterEventsForNextWeek($events)
+    {
+        $now = Carbon::now();
+        $oneWeekLater = $now->copy()->addWeek();
+
+        return array_filter($events, function ($event) use ($now, $oneWeekLater) {
+            return $event['start']->between($now, $oneWeekLater);
+        });
+    }
+
+    /**
      * Merge overlapping intervals and return the result.
      *
      * @param array $events
@@ -107,7 +108,6 @@ class CalendarController extends Controller
      */
     private function mergeIntervals($events)
     {
-
         usort($events, function ($a, $b) {
             return $a['start']->lt($b['start']) ? -1 : 1;
         });
